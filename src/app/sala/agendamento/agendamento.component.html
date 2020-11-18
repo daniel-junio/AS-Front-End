@@ -1,0 +1,38 @@
+<div class="container main-container"> 
+    <h1>Agendamento</h1>
+
+    <form novalidate (ngSubmit)="agendarSala()" [formGroup]="agendamentoForm">
+        <hr>
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+            <h3 id="msgRetorno">Algo deu errado:</h3>
+            <ul>
+                <li *ngFor="let error of errors"{{error}}></li>
+            </ul>
+        </div>
+        <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Action - 1</button>
+              <button ngbDropdownItem>Another Action</button>
+              <button ngbDropdownItem>Something else is here</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+                <label class="col-md-2 control-label">Título</label>
+                <div class="col-md-10">
+                    <input class="form-control" id="titulo" type="text" placeholder="Digite o título..." formControlName="titulo" [ngClass]="{'is-invalid':displayMessage.titulo}" required/>
+                    <span class="text-danger" *ngIf="displayMessage.titulo">
+                                <p [innerHTML]="displayMessage.titulo"></p>
+
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+                <span><button class="btn btn-success" id="agendar" [disabled]="!agendamentoForm.valid" type="submit">Agendar</button></span>
+            </div>
+        </div>
+    </form>
+</div>
