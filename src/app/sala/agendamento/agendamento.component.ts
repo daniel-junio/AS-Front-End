@@ -3,73 +3,94 @@ import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/utils/generic-form-validation';
-import { Agendamento } from '../models/agendamento';
+import { Agendamento} from '../models/agendamento';
 import { SalaService } from '../services/sala.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { NgbTimepickerConfig, NgbTimeStruct, NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agendamento',
-  templateUrl: './agendamento.component.html'
+  templateUrl: './agendamento.component.html',
+  providers:[
+    NgbTimepickerConfig
+  ]
 })
 export class AgendamentoComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   errors: any[] = [];
-  agendamentoForm: FormGroup;
+  agendamentoForm!: FormGroup;
   agendamento: Agendamento;
 
+  data: any;
+  
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
-
+  
   constructor(private fb: FormBuilder,
     private salaservice: SalaService,
     private router: Router,
     private toastr: ToastrService) {
 
      this.validationMessages = {
-      datahorainicio:{
-        required: 'Informe a data e hora de início'
+      data:{
+        required: 'Informe a Data'
       },
-        datahorafim:{
-        required: 'Informe a data e hora do fim'
+      titulo:{
+        required: 'Informe o título do agendamento'
       },
-        titulo:{
-          required: 'Informe o título do agendamento'
-        }
+      horaInicio:{
+        required:'Selecione o horário inicial'
+      },
+      horaFim:{
+        required:'Selecione o horário final'
+      },
+      salaNumero:{
+        required:'Informe o Número da Sala'
+      }
     };
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   ngOnInit(): void {
-    this.agendamentoForm = this.fb.group({
-      titulo: [''],
-      salaId: [''],
-      datahorainicio: ['',[Validators.required]],
-      datahorafim: [''] 
-    });
-  }
+    
+    this.agendamentoForm = this.fb.group({  
+      data: ['',[Validators.required]],
+      horaInicio: ['',[Validators.required]],
+      horaFim: ['',[Validators.required]],
+      salaNumero: ['',[Validators.required]],
+      titulo: ['',[Validators.required]]
+      });
+    };
+
+    
   ngAfterViewInit(): void{
     let controlBlurs: Observable<any>[] = this.formInputElements
     .map((formControl: ElementRef)=> fromEvent(formControl.nativeElement,'blur'));
 
     merge(...controlBlurs).subscribe(()=>{
       this.displayMessage = this.genericValidator.processarMensagens(this.agendamentoForm);
-      //this.mudancasNalSalvas =true;
     })
-
   }
   agendarSala(){
     if(this.agendamentoForm.dirty && this.agendamentoForm.valid){
+      
       this.agendamento = Object.assign({}, this.agendamento, this.agendamentoForm.value);
-
-      this.salaservice.AgendarSala(this.agendamento)
-      .subscribe(
-        sucesso => {this.processarSucesso(sucesso)},
-        falha => {this.processarFalha(falha)}
+      if(this.agendamento.horaInicio >= this.agendamento.horaFim){
+        this.toastr.warning('Hora inicio deve ser menor que hora fim.','Algo deu errado!')
+      }
+      else{
+        this.agendamento.horaFim = this.agendamento.horaFim +':00';
+        this.agendamento.horaInicio = this.agendamento.horaInicio +':00';
+        this.salaservice.AgendarSala(this.agendamento)
+         .subscribe(
+         sucesso => {this.processarSucesso(sucesso)},
+         falha => {this.processarFalha(falha)}
       );
+      }
     }
   }
 
@@ -80,14 +101,13 @@ export class AgendamentoComponent implements OnInit, AfterViewInit {
 
     if(toast){
       toast.onHidden.subscribe(()=>{
-        this.router.navigate(['/lista']);
+        this.router.navigate(['/home']);
       });
     }
   }
 
   processarFalha(fail: any){
     this.errors = fail.error.errors; 
-    this.toastr.error('Ocorreu um erro!', 'Opa :(')
+    this.toastr.error('Erro ao Agendar Sala, Verifique a lista dos horários já agendados', 'Opa :(')
   }
-
 }

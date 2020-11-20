@@ -9,14 +9,16 @@
                 <li *ngFor="let error of errors"{{error}}></li>
             </ul>
         </div>
-        <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem>Action - 1</button>
-              <button ngbDropdownItem>Another Action</button>
-              <button ngbDropdownItem>Something else is here</button>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Número da sala</label>
+            <div class="col-md-10">
+                <input class="form-control" id="salaNumero" type="number" placeholder="Digite o Número da Sala..." formControlName="SalaNumero" [ngClass]="{'is-invalid':displayMessage.salaNumero}" required/>
+                <span class="text-danger" *ngIf="displayMessage.salaNumero">
+                    <p [innerHTML]="displayMessage.salaNumero"></p>
+                </span>
             </div>
-        </div>
+    </div>
 
         <div class="form-group">
                 <label class="col-md-2 control-label">Título</label>
@@ -24,14 +26,38 @@
                     <input class="form-control" id="titulo" type="text" placeholder="Digite o título..." formControlName="titulo" [ngClass]="{'is-invalid':displayMessage.titulo}" required/>
                     <span class="text-danger" *ngIf="displayMessage.titulo">
                                 <p [innerHTML]="displayMessage.titulo"></p>
-
                     </span>
                 </div>
         </div>
-
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-3 ">
+                    <label class="control-label">Data</label>
+                    <input class="form-control" type="date" formControlName="data" id="Data" [ngClass]="{'is-invalid':displayMessage.data}" required>
+                    <span class="text-danger" *ngIf="displayMessage.data">
+                        <p [innerHTML]="displayMessage.data"></p>
+                    </span>
+                </div>
+                <div class="col-md-3 ml-4">
+                    <label class="control-label">Hora Início</label>
+                    <input class="form-control" formControlName="horaInicio" type="time" [ngClass]="{'is-invalid':displayMessage.horaInicio}" required >
+                    <span class="text-danger" *ngIf="displayMessage.horaInicio">
+                        <p [innerHTML]="displayMessage.horaInicio"></p>
+                    </span>
+                </div>
+                <div class="col-md-3 ml-4">
+                    <label class="control-label">Hora Fim</label>
+                    <input class="form-control" formControlName="horaFim" type="time"  [ngClass]="{'is-invalid':displayMessage.horaFim}" required>               
+                    <span class="text-danger" *ngIf="displayMessage.horaFim">
+                        <p [innerHTML]="displayMessage.horaFim"></p>
+                    </span>
+                </div>
+            </div>
+            
+          </div>
         <div class="form-group">
-            <div class="col-md-4 col-md-offset-2">
-                <span><button class="btn btn-success" id="agendar" [disabled]="!agendamentoForm.valid" type="submit">Agendar</button></span>
+            <div class="col-md-4 col-md-offset-2 mt-3">
+                <span><button class="btn btn-success" id="agendar" type="submit">Agendar</button></span>
             </div>
         </div>
     </form>

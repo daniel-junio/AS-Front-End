@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,11 +22,11 @@ import { SalaService } from './services/sala.service';
     SalaRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    ToastrModule.forRoot()
+    HttpClientModule
   ],
   providers:[
-    SalaService
-  ]
+    SalaService,
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class SalaModule { }

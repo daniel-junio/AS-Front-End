@@ -10,19 +10,17 @@ import { Agendamento } from '../models/agendamento';
 export class SalaService extends BaseService{
     constructor(private http: HttpClient) {super();}
 
-    AgendarSala(agendamento: Agendamento): Observable<Agendamento>{
+    AgendarSala(agendamento: Agendamento){
         let response = this.http.
-            post(this.UrlServiceV1 + 'sala/agendar',agendamento, this.ObterHeaderJason())
+            post(this.UrlServiceV1 + 'agendamentos/criar',agendamento)
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));
-
         return response;
     }
-
-    ListarSalas(): Observable<Agendamento[]>{        
+    ListarSalasAgendamentos(): Observable<Agendamento[]>{        
         return this.http
-                .get<Agendamento[]>(this.UrlServiceV1 + 'sala/agendar')
+                .get<Agendamento[]>(this.UrlServiceV1 + 'agendamentos')
                 .pipe(catchError(super.serviceError));
     }
 }

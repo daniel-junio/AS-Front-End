@@ -3,7 +3,7 @@ import { IfStmt } from '@angular/compiler';
 import { throwError } from 'rxjs';
 
 export abstract class BaseService{
-    protected UrlServiceV1: string = "https://localhost:5001/api/v1/";
+    protected UrlServiceV1: string = "https://localhost:5001/api/";
 
     protected ObterHeaderJason(){
         return{

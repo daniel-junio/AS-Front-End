@@ -1,9 +1,8 @@
-import { Sala } from './sala';
-
-export interface Agendamento{
+export class Agendamento{
     id: string;
-    salaId: Sala;
+    salaNumero: number;
     titulo: string;
-    datahorainicio: TimeRanges;
-    datahorafim: TimeRanges;    
+    data: string;
+    horaInicio: any;
+    horaFim: any;
 }
