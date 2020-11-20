@@ -6,7 +6,6 @@
 </div>
 <br />
 <div class="row">
-
     <div class="col-md-2 col-sm-12" style="margin-top: 5px; margin-bottom: 5px;">
         <a [routerLink]="['/sala/agendamento']" class="btn-success btn">Novo Agendamento</a>
     </div>
@@ -14,25 +13,12 @@
     <div class="col-md-5 col-sm-12" style="margin-top: 5px; margin-bottom: 5px;">
         <form method="get">
             <div class="row">
-                <!-- <div class="col-md-8">
-                    <div class="form-actions no-color">
-                        <input name="pesquisar" class="form-control form-control-sm " style="text-align:left" type="text" name="SearchString" placeholder="Pesquisar" />
-                    </div>
-                </div> -->
-                <!-- <div class="col-md-2">
-                    <button class="btn btn-secondary btn-sm btn-pesquisar"><i class="fas fa-search"></i></button>
-                </div> -->
-                <!-- <div class="col-md-2">
-                    <a  href="ListAluno.php" class="btn btn-secondary btn-sm" style="text-align:left"><i class="fas fa-sync"></i></a>
-                </div> -->
             </div>
         </form>
     </div>
-
 </div>
 <br />
 <div class="row">
-
     <div class="col-12">
         <table class="box-list table-hover table table-responsive-md">
             <thead>
@@ -51,8 +37,8 @@
                 <td>{{agendamentos.salaNumero}}</td>
                 <td>{{agendamentos.titulo}}</td>
                 <td>{{agendamentos.data | date:"dd/MM/yyyy"}}</td>
-                <td>{{agendamentos.horaInicio?.hours}}:{{agendamentos.horaInicio?.minutes}}:{{agendamentos.horaInicio?.seconds}}</td>
-                <td>{{agendamentos.horaFim?.hours}}:{{agendamentos.horaFim?.minutes}}:{{agendamentos.horaFim?.seconds}}</td>
+                <td>{{agendamentos.horaInicio}}</td>
+                <td>{{agendamentos.horaFim}}</td>
                 <td> <a class="btn btn-danger" [routerLink]="['/sala/agendamento']">Excluir</a> </td>                
             </tr>
             </tbody>
@@ -66,44 +52,6 @@
             white-space: nowrap;
         }
     </style>
-
-    
 </div>
 </div>
-
-
-<!-- <div class="container">
-    <div class="row">
-        <div *ngFor="let agendamentos of agendamentos" class="card border-success mt-1 mr-1" style="width: 14rem;">
-          <div *ngIf="agendamentos != null">
-            <div style="text-align: center;"  class="card-body border-success">
-              <h5 class="card-title">{{agendamentos.SalaNumero}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted"></h6>
-              <div>
-                <hr class="border-success">
-                <button class="btn btn-primary">Verificar 
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>            
-          </div>
-          <div *ngIf="agendamentos == null || agendamentos == undefined">
-            <div style="text-align: center;">
-              <h2>Nenhum agendamento encontrado</h2>
-              <i class="far fa-frown"></i>
-            </div>
-          </div>
-          </div>
-      </div>
-      <hr class="border-success">
-                <button class="btn btn-primary">Verificar 
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                </button><hr class="border-success">
-                <button class="btn btn-primary">Verificar 
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                </button><hr class="border-success">
-                <button class="btn btn-primary">Verificar 
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                </button>
-</div> -->
 

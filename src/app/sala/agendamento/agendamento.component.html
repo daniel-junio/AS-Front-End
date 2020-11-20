@@ -1,6 +1,10 @@
 <div class="container main-container"> 
-    <h1>Agendamento</h1>
-
+    <div>
+        <h5 class="mt-4">
+          <i class="fas fa-align-justify"></i> Agendamento
+        </h5>
+    </div>
+    <br />
     <form novalidate (ngSubmit)="agendarSala()" [formGroup]="agendamentoForm">
         <hr>
         <div class="alert alert-danger" *ngIf="errors.length > 0">
@@ -13,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Número da sala</label>
             <div class="col-md-10">
-                <input class="form-control" id="salaNumero" type="number" placeholder="Digite o Número da Sala..." formControlName="SalaNumero" [ngClass]="{'is-invalid':displayMessage.salaNumero}" required/>
+                <input class="form-control" id="salaNumero" type="number" placeholder="Digite o Número da Sala..." formControlName="salaNumero" [ngClass]="{'is-invalid':displayMessage.salaNumero}" required/>
                 <span class="text-danger" *ngIf="displayMessage.salaNumero">
                     <p [innerHTML]="displayMessage.salaNumero"></p>
                 </span>

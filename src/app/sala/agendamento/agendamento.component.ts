@@ -101,7 +101,7 @@ export class AgendamentoComponent implements OnInit, AfterViewInit {
 
     if(toast){
       toast.onHidden.subscribe(()=>{
-        this.router.navigate(['/home']);
+        this.router.navigate(['/sala/lista']);
       });
     }
   }

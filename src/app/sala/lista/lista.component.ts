@@ -24,11 +24,19 @@ export class ListaComponent implements OnInit {
     .subscribe(
       salas =>{
         salas.forEach(element => {
-          element.horaFim = new Date(element.horaFim.toString());
+          element.horaInicio = this.JSONTimeSpanToString(element.horaInicio);
+          element.horaFim = this.JSONTimeSpanToString(element.horaFim);
       });
         this.agendamentos = salas
       }, 
       error => this.errorMessage = error);
   }
 
+  JSONTimeSpanToString(timespan: any) {
+    if (!timespan) { return null; }
+    const hours: string = timespan.hours < 10 ? `0${timespan.hours}` : timespan.hours;
+    const minutes: string = timespan.minutes < 10 ? `0${timespan.minutes}` : timespan.minutes;
+    const seconds: string = timespan.seconds < 10 ? `0${timespan.seconds}` : timespan.seconds;
+    return `${hours}:${minutes}:${seconds}`;
+  }
 }
